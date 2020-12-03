@@ -1,15 +1,18 @@
 <mat-card>
   <mat-card-content>
     <form>
-      <mat-form-field>
-        <mat-label>Savollar</mat-label>
+      <mat-form-field class="fullwidth">
         <input [(ngModel)]="question.text" name="question" matInput placeholder="Savol">
+      </mat-form-field>
+      <mat-form-field class="fullwidth">
+        <input [(ngModel)]="question.correctAnswer" name="correctAnswer" matInput placeholder="To'g'ri javob">
+      </mat-form-field>
+      <mat-form-field class="fullwidth" *ngFor="let item of question.wrongAnswers; let i=index">
+        <input [(ngModel)]="item" name="item" matInput placeholder="Noto'g'ri javob">
       </mat-form-field>
     </form>
   </mat-card-content>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eos sit enim veritatis suscipit
-    consequuntur aperiam nobis tenetur nemo cumque? </p>
-  <mat-card-actions>
+  <mat-card-actions class="fullwidth">
     <button (click)="post()" mat-button>Jo'natish</button>
   </mat-card-actions>
 </mat-card>

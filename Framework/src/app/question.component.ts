@@ -6,8 +6,11 @@ import { ApiService } from './api.service';
     templateUrl: './question.component.html'
 })
 export class QuestionComponent{
-    question={
-        text : ''
+    
+    question = {
+        text : 'Uzbekistan poytaxti nima',
+        correctAnswer : 'Toshkent',
+        wrongAnswers: ['','','']
     }
     
     constructor(private apiSvc : ApiService){}
