@@ -7,9 +7,9 @@ import { ApiService } from '../api.service';
 })
 export class QuestionsComponent{
     
-    questions: any;
+    questions!: any;
 
-    constructor(private apiSvc : ApiService){}
+    constructor(public apiSvc : ApiService){}
     
     ngOnInit(){
       this.apiSvc.gettQuestion().subscribe(result =>{
