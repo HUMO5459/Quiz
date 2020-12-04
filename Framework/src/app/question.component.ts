@@ -8,8 +8,8 @@ import { ApiService } from './api.service';
 export class QuestionComponent{
     
     question = {
-        text : 'Uzbekistan poytaxti nima',
-        correctAnswer : 'Toshkent',
+        text : '',
+        correctAnswer : '',
         wrongAnswers: ['','','']
     }
     

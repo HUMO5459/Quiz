@@ -29,11 +29,7 @@ namespace Quiz.Backend.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Question>> Get()
         {
-            return new Question[]
-            {
-                new Question {Text = "Git ning asoschisi kim?"},
-                new Question {Text = "Yer Quyosh sistemsidagi nechanchi sayyora?"}
-            };
+            return _context.Questions;
         }
     }
 }

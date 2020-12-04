@@ -14,5 +14,9 @@ export class ApiService{
       .subscribe(response=>{
         console.log(response);
       })
+  } 
+  
+  gettQuestion(){
+    return this.http.get('https://localhost:44303/api/Question')
   }
 }
