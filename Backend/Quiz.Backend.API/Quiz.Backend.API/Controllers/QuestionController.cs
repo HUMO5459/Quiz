@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quiz.Backend.API.Models;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,25 @@ namespace Quiz.Backend.API.Controllers
         }
         public Question Question { get; set; }
         [HttpPost]
-        public void Post([FromBody] Question question)
+        public async Task<IActionResult>  Post([FromBody] Question question)
         {
-            question.WrongAnswersString= String.Join(',', question.WrongAnswers.ToArray());
+            if(question.WrongAnswers != null)
+                question.WrongAnswersString= String.Join(',', question.WrongAnswers.ToArray());
+            
             _context.Questions.Add(question);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Ok(question);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Question question)
+        {
+            if(id != question.Id)
+            {
+                return BadRequest();
+            }
+            _context.Entry(question).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok(question);
         }
         [HttpGet]
         public ActionResult<IEnumerable<Question>> Get()
