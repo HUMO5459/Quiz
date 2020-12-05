@@ -12,7 +12,7 @@ export class QuestionsComponent{
     constructor(public apiSvc : ApiService){}
     
     ngOnInit(){
-      this.apiSvc.gettQuestion().subscribe(result =>{
+      this.apiSvc.getQuestion().subscribe(result =>{
             this.questions=result;
         })
     }
