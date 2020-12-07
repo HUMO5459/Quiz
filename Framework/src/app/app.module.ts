@@ -23,6 +23,7 @@ import { QuizzesComponent } from './quizzes/quizzes.component';
 
 const routes =[
   { path:"question", component: QuestionComponent},
+  { path:"question/:quizid", component: QuestionComponent},
   { path:"questions", component: QuestionsComponent},
   { path:"quiz", component : QuizComponent},
   { path:"", component: HomeComponent}

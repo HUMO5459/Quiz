@@ -21,8 +21,13 @@ namespace Quiz.Backend.API.Controllers
         }
         public Question Question { get; set; }
         [HttpPost]
-        public async Task<IActionResult>  Post([FromBody] Question question)
+        public async Task<IActionResult> Post([FromBody] Question question)
         {
+            var quiz = _context.Quiz.SingleOrDefault(q => q.Id == question.QuizId);
+            if(quiz == null)
+            {
+                return NotFound();
+            }
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
             return Ok(question);
@@ -30,7 +35,7 @@ namespace Quiz.Backend.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Question question)
         {
-            if(id != question.Id)
+            if (id != question.Id)
             {
                 return BadRequest();
             }
@@ -38,10 +43,18 @@ namespace Quiz.Backend.API.Controllers
             await _context.SaveChangesAsync();
             return Ok(question);
         }
+
         [HttpGet]
         public ActionResult<IEnumerable<Question>> Get()
         {
             return _context.Questions;
         }
+
+        [HttpGet("{quizId}")]
+        public ActionResult<IEnumerable<Question>> Get([FromRoute] int quizId)
+        {
+            return _context.Questions.Where(q=>q.QuizId == quizId).ToList();
+        }
+
     }
 }

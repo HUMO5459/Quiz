@@ -7,5 +7,5 @@ export class Question {
     wrongAnswer1!:string;
     wrongAnswer2!:string;
     wrongAnswer3!:string;
-
+    quizid: string | undefined;
 }

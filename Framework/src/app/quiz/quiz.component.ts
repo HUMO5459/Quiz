@@ -20,6 +20,8 @@ export class QuizComponent implements OnInit {
       this.apiSvc.putQuiz(this.quiz);
     else
       this.apiSvc.postQuiz(this.quiz);
+    
+    this.resetQuiz();
   }
 
   resetQuiz() {
@@ -36,7 +38,7 @@ export class QuizComponent implements OnInit {
   }
 
   navigateToQuestions() {
-      this.router.navigate(['/question']);
+      this.router.navigate(['/question/' + this.quiz.id]);
   }
-
+ 
 }
