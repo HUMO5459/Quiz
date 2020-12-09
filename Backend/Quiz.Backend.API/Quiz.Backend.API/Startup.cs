@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,9 +36,14 @@ namespace Quiz.Backend.API
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
+
             services.AddDbContext<QuizContext>(options => options.UseInMemoryDatabase("Quiz"));
+            services.AddDbContext<UserDbContext>(options => options.UseInMemoryDatabase("User"));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+
             services.AddControllers();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Quiz.Backend.API", Version = "v1" });

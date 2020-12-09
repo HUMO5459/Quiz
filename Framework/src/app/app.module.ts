@@ -9,7 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { QuestionsComponent } from './questions/questions.component';
 import {MatListModule} from '@angular/material/list';
@@ -19,6 +19,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavbarComponent } from './navbar/navbar.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizzesComponent } from './quizzes/quizzes.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 
 const routes =[
@@ -26,6 +28,7 @@ const routes =[
   { path:"question/:quizid", component: QuestionComponent},
   { path:"questions", component: QuestionsComponent},
   { path:"quiz", component : QuizComponent},
+  { path:"register", component : RegisterComponent},
   { path:"", component: HomeComponent}
 ];
 
@@ -37,7 +40,8 @@ const routes =[
     HomeComponent,
     NavbarComponent,
     QuizComponent,
-    QuizzesComponent
+    QuizzesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,11 @@ const routes =[
     RouterModule.forRoot(routes),
     MatToolbarModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, AuthService, {
+    provide : HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi : true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
